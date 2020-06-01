@@ -1,0 +1,6 @@
+{
+  "ignore":["__test__/"],
+  "execMap":{
+    "js":"node -r sucrase/register"
+  }
+}

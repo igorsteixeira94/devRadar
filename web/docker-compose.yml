@@ -1,0 +1,14 @@
+version: '3.7'
+
+services: 
+  web:
+    build: .
+    command: yarn start
+    ports: 
+      - "3001:3000"
+    volumes: 
+      - .:/usr/src/web
+      - /usr/src/web/node_modules
+    container_name: template
+    stdin_open: true
+    tty: true
