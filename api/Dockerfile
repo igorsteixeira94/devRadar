@@ -1,6 +1,9 @@
 FROM node:lts-alpine
 
-WORKDIR /usr/src/app
+
+RUN mkdir -p /usr/src/webapi
+
+WORKDIR /usr/src/webapi
 
 COPY package.*json .
 
@@ -8,9 +11,9 @@ RUN yarn
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 3333
 
-CMD ["yarn","dev:server"]
+CMD ["yarn","server"]
 
 
 

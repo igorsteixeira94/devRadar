@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+  api:
+    build: ./api/
+    command: yarn dev:server
+    ports:
+      - "3333:3333"
+    command:
+      - .:/usr/src/api
+      - /usr/src/api/node_modules
