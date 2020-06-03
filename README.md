@@ -2,7 +2,13 @@
 
 Aplicação para encontrar desenvolvedores próximos a você.  (Semana OmniStack 10)
 
+
 ## 🚀️ Tecnologias
+
+![tta](https://user-images.githubusercontent.com/47749249/83696337-96cdb400-a5d2-11ea-8d15-c90f06650825.png)
+
+## 🚀️Tecnologias
+
 
 - BackEnd:
   - [x] NodeJs;
