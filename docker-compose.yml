@@ -1,11 +1,32 @@
 version: '3.7'
 
 services:
+  web:
+    build: ./web
+    command: yarn start
+    ports: 
+      - "3001:3000"
+    volumes: 
+      - ./web:/usr/src/web
+      - /usr/src/web/node_modules
+    container_name: devRadar
+    stdin_open: true
+    tty: true
   api:
-    build: ./api/
-    command: yarn dev:server
+    build: ./api
+    command: yarn server
     ports:
       - "3333:3333"
-    command:
-      - .:/usr/src/api
-      - /usr/src/api/node_modules
+    volumes:
+      - ./api:/usr/src/webapi
+      - /usr/src/webapi/node_modules
+    container_name: devRadar-api
+    depends_on:
+      - db
+    links:
+      - db
+  db:
+    image: mongo
+    ports:
+      - "27017:27017"
+    container_name: mongo-container
