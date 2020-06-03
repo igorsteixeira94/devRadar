@@ -2,7 +2,7 @@
 
 Aplicação para encontrar desenvolvedores próximos a você.  (Semana OmniStack 10)
 
-## 🚀️Tecnologias
+## 🚀️ Tecnologias
 
 - BackEnd:
   - [x] NodeJs;
@@ -21,7 +21,7 @@ Aplicação para encontrar desenvolvedores próximos a você.  (Semana OmniStack
   - [ ] React;
   - [ ] React Native;
 
-## Como Usar
+## 👨‍💻️ Como Usar
 
 Faça um clone da aplicação, entre na pasta e utilize o docker para criar os containers ! 
 
