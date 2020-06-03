@@ -1,7 +1,14 @@
 import React from 'react';
+import Main from './pages/Main';
+import GlobalStyle from './style/global';
 
-function App() {
-  return <h1>Iuri Rodrigues</h1>;
-}
+const App = () => {
+  return (
+    <>
+      <Main />
+      <GlobalStyle />
+    </>
+  );
+};
 
 export default App;
