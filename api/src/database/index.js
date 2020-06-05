@@ -6,7 +6,7 @@ class Database {
   }
 
   mongo() {
-    this.connection = mongoose.connect('mongodb://db/devRadar', {
+    this.connection = mongoose.connect(process.env.MONGODB, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
