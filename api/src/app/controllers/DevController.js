@@ -32,9 +32,15 @@ class DevController {
   }
 
   async index(request, response) {
-    const devs = await Dev.find();
+    try {
 
-    return response.json(devs);
+      const devs = await Dev.find();
+      return response.json(devs);
+
+    } catch (error) {
+      return response.status(400).json(error.message);
+    }
+
   }
 }
 
