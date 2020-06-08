@@ -1,16 +1,17 @@
-import React, {useEffect, useState} from 'react';
-
+import React, {useEffect, useState, useCallback} from 'react';
 import MapView, {Marker, Callout} from 'react-native-maps';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {PermissionsAndroid, Image, StyleSheet, View, Text} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 import api from '../../services/api';
+import {connect, disconnect, subscribeToNewDevs} from '../../services/socket';
 
 const App = ({navigation}) => {
   const [devs, setDevs] = useState([]);
   const [techs, setTechs] = useState('');
   const [currentRegion, setCurrentRegion] = useState(null);
+
   useEffect(() => {
     async function location() {
       try {
@@ -43,7 +44,18 @@ const App = ({navigation}) => {
     location();
   }, []);
 
-  async function loadDevs() {
+  useEffect(() => {
+    subscribeToNewDevs((dev) => setDevs([...devs, dev]));
+  }, [devs]);
+
+  const webSocket = useCallback(() => {
+    disconnect();
+    const {latitude, longitude} = currentRegion;
+
+    connect(latitude, longitude, techs);
+  });
+
+  const loadDevs = useCallback(async () => {
     const {latitude, longitude} = currentRegion;
     const response = await api.get('/search', {
       params: {
@@ -53,13 +65,13 @@ const App = ({navigation}) => {
       },
     });
     setDevs(response.data);
-    console.log(response.data);
-  }
+    webSocket();
+  });
 
-  function handleRegion(region) {
-    console.log(region);
+  const handleRegion = useCallback((region) => {
     setCurrentRegion(region);
-  }
+  });
+
   return (
     <>
       <MapView
@@ -105,12 +117,13 @@ const App = ({navigation}) => {
           onChangeText={setTechs}
         />
         <TouchableOpacity onPress={loadDevs} style={styles.loadButton}>
-          <Icon name="my-location" size={30} />
+          <Icon name="my-location" size={30} color="#805EB8" />
         </TouchableOpacity>
       </View>
     </>
   );
 };
+
 const styles = StyleSheet.create({
   avatar: {
     width: 54,
