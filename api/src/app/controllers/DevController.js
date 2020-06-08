@@ -1,7 +1,9 @@
 import Dev from '../models/Dev';
 import api from '../../services/api';
+import {findConnections, sendMessage} from '../../services/websocket';
 
 class DevController {
+
   async store(request, response) {
     try {
       const { github_username, techs } = request.body;
@@ -25,9 +27,13 @@ class DevController {
         location,
       });
 
+      const sendSocketMessageTo = findConnections({latitude,longitude},techs)
+
+      sendMessage(sendSocketMessageTo,'new-dev',dev);
+
       return response.json(dev);
     } catch (error) {
-      return response.status(400).json(error.message);
+      return response.status(400).json(error);
     }
   }
 
@@ -35,12 +41,14 @@ class DevController {
     try {
 
       const devs = await Dev.find();
+
       return response.json(devs);
 
     } catch (error) {
-      return response.status(400).json(error.message);
-    }
 
+      return response.status(400).json(error.message);
+
+    }
   }
 }
 

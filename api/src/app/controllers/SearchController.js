@@ -20,13 +20,9 @@ class SearchController {
         },
       });
       return response.json(devs);
-
     } catch (error) {
       return response.status(400).json(error.message);
     }
-
-
-
   }
 }
 
