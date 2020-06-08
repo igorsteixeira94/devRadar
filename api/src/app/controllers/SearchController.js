@@ -15,7 +15,7 @@ class SearchController {
               type: 'Point',
               coordinates: [longitude, latitude],
             },
-            $maxDistance: 1000,
+            $maxDistance: 10000,
           },
         },
       });
